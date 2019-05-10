@@ -95,10 +95,7 @@ module.exports = {
 					// 'border-radius-base': '4px',
 				},
 				javascriptEnabled: true
-			},
-			sass: {
-				data: `@import "@/style/_variables.scss";`
-			},
+			}
 		}, // 为所有的 CSS 及其预处理文件开启 CSS Modules。
 		modules: false
 	},
