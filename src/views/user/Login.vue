@@ -1,37 +1,55 @@
 <template>
-  <div class="main">
-    <div class="login-head">账号密码登录</div>
-    <a-form
-      id="formLogin"
-      class="user-layout-login"
-      ref="formLogin"
-      :form="form"
-      @submit="handleSubmit"
-    >
-      <a-form-item>
-        <a-input size="large" type="text" placeholder="帐户名">
-          <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-        </a-input>
-      </a-form-item>
-      <a-form-item>
-        <a-input size="large" type="password" autocomplete="false" placeholder="密码">
-          <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-        </a-input>
-      </a-form-item>
+  <div class="login">
+    <vue-particles
+      color="#dedede"
+      :particleOpacity="0.7"
+      :particlesNumber="80"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#dedede"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
+    ></vue-particles>
+    <div class="main">
+      <div class="login-head">账号密码登录</div>
+      <a-form
+        id="formLogin"
+        class="user-layout-login"
+        ref="formLogin"
+        :form="form"
+        @submit="handleSubmit"
+      >
+        <a-form-item>
+          <a-input size="large" type="text" placeholder="帐户名">
+            <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+          </a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-input size="large" type="password" autocomplete="false" placeholder="密码">
+            <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+          </a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-checkbox v-decorator="['rememberMe']">自动登录</a-checkbox>
+          <router-link
+            :to="{ name: 'recover', params: { user: 'aaa'} }"
+            class="forge-password"
+            style="float: right;"
+          >忘记密码</router-link>
+        </a-form-item>
 
-      <a-form-item>
-        <a-checkbox v-decorator="['rememberMe']">自动登录</a-checkbox>
-        <router-link
-          :to="{ name: 'recover', params: { user: 'aaa'} }"
-          class="forge-password"
-          style="float: right;"
-        >忘记密码</router-link>
-      </a-form-item>
-
-      <a-form-item style="margin-top:24px">
-        <a-button size="large" type="primary" htmlType="submit" class="login-button">确定</a-button>
-      </a-form-item>
-    </a-form>
+        <a-form-item style="margin-top:24px">
+          <a-button size="large" type="primary" htmlType="submit" class="login-button">确定</a-button>
+        </a-form-item>
+      </a-form>
+    </div>
   </div>
 </template>
 
@@ -45,7 +63,7 @@ export default {
       form: this.$form.createForm(this)
     };
   },
-  created() {},
+  created() { },
   methods: {
     handleSubmit(e) {
       e.preventDefault();
@@ -59,14 +77,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.login {
+  height: 100%;
+  background-image: url("../../img/login-bg.jpg");
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .main {
   min-width: 260px;
-  width: 500px;
+  width: 450px;
   margin: 0 auto;
   padding: 30px 50px;
-  border: 1px solid #55b7f7;
-  //   background: #55b7f7;
+  background: #fff;
   position: absolute;
+  border-radius: 5px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -74,11 +99,8 @@ export default {
     padding: 10px 0;
     font-size: 19px;
     text-align: center;
-    // background: #fff;
   }
   .user-layout-login {
-    //   background: #fff;
-    //   padding:30px;
     label {
       font-size: 14px;
     }
