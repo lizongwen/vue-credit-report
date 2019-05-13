@@ -16,7 +16,7 @@ const router = new Router({
 	base: process.env.BASE_URL,
 	routes: BaseRouter
 })
-const whiteList = ['login', 'register', 'registerResult'] // no redirect whitelist
+const whiteList = ['login', 'register', 'registerResult', 'home','company','base'] // no redirect whitelist
 router.beforeEach((to, from, next) => {
 	if (Vue.ls.get(ACCESS_TOKEN)) {
 		if (to.path == '/') {
