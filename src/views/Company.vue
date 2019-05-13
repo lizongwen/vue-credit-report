@@ -3,50 +3,21 @@
     <a-layout-header :style="{height:'100px',background:'#fff',borderBottom:'1px solid #d9d9d9'}">XXX有限公司</a-layout-header>
     <a-layout>
       <a-layout-sider theme="light" width="256px">
-        <a-menu mode="inline" :openKeys="openKeys" @openChange="onOpenChange" style="width: 256px">
-          <a-sub-menu key="sub1">
-            <span slot="title">
-              <a-icon type="mail"/>
-              <span>基本信息</span>
-            </span>
-            <a-menu-item key="1" @click="goPage">基本信息 1</a-menu-item>
-            <a-menu-item key="2" @click="goPage">基本信息 2</a-menu-item>
-            <a-menu-item key="3" @click="goPage">基本信息 3</a-menu-item>
-            <a-menu-item key="4" @click="goPage">基本信息 4</a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu key="sub2">
-            <span slot="title">
-              <a-icon type="appstore"/>
-              <span>扩展信息</span>
-            </span>
-            <a-menu-item key="5" @click="goPage">扩展信息 5</a-menu-item>
-            <a-menu-item key="6" @click="goPage">扩展信息 6</a-menu-item>
-            <a-sub-menu key="sub3" title="扩展信息7">
-              <a-menu-item key="7" @click="goPage">扩展信息 7-1</a-menu-item>
-              <a-menu-item key="8" @click="goPage">扩展信息 7-2</a-menu-item>
-            </a-sub-menu>
-          </a-sub-menu>
-          <a-sub-menu key="sub4">
-            <span slot="title">
-              <a-icon type="setting"/>
-              <span>更多信息</span>
-            </span>
-            <a-menu-item key="9" @click="goPage">更多信息 9</a-menu-item>
-            <a-menu-item key="10" @click="goPage">更多信息 10</a-menu-item>
-            <a-menu-item key="11" @click="goPage">更多信息 11</a-menu-item>
-            <a-menu-item key="12" @click="goPage">更多信息 12</a-menu-item>
-          </a-sub-menu>
-        </a-menu>
+        <side-menu></side-menu>
       </a-layout-sider>
-      <a-layout-content>
-		  <router-view/>
-	  </a-layout-content>
+      <a-layout-content style="padding: 20px;">
+		    <router-view/>
+	    </a-layout-content>
     </a-layout>
   </a-layout>
 </template>
 
 <script>
+import SideMenu from '@/components/SideMenu.vue'
 export default {
+  components: {
+    SideMenu
+  },
   data() {
     return {
       rootSubmenuKeys: ["sub1", "sub2", "sub4"],
