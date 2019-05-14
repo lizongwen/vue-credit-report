@@ -79,24 +79,23 @@ export default {
     ...mapActions(['Login']),
     handleSubmit(e) {
       e.preventDefault();
-      const { form: { validateFields },Login } = this
+      const { form: { validateFields }, Login } = this
       validateFields(['username', 'password'], { force: true }, (err, values) => {
         if (!err) {
-		  console.log('表单正确',values);
-		  values.password=md5(values.password)
-		//   console.log(Login)
-		  Login(values)
-		// console.log(this.$store)
-		//   this.$store.dispatch('Login',values)
+          console.log('表单正确', values);
+          values.password = md5(values.password)
+          Login(values).then((res) => {
+            this.loadSuccess(res)
+          })
         } else {
           console.log('表单错误')
         }
       })
-
-      //   Vue.ls.set(ACCESS_TOKEN, 123456789, 7 * 24 * 60 * 60 * 1000);
-      //   this.$router.push({
-      //     path: "/home"
-      //   });
+    },
+    loadSuccess(res) {
+      this.$router.push({
+        path: "/home"
+      });
     }
   }
 };
