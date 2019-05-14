@@ -85,9 +85,9 @@ export default {
 		  console.log('表单正确',values);
 		  values.password=md5(values.password)
 		//   console.log(Login)
-		//   Login(values)
-		console.log(this.$store)
-		  this.$store.dispatch('Login',values)
+		  Login(values)
+		// console.log(this.$store)
+		//   this.$store.dispatch('Login',values)
         } else {
           console.log('表单错误')
         }

@@ -1,4 +1,6 @@
+import Vue from 'vue'
 import { login } from '@/api/login'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 const user = {
 	state: {
 		token: ''
@@ -10,17 +12,17 @@ const user = {
 	},
 	actions: {
 		Login({ commit }, userInfo) {
-			console.log(555)
-			// return new Promise((resolve, reject) => {
-			// 	login(userInfo).then(response => {
-			// 		const result = response.result
-			// 		Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
-			// 		commit('SET_TOKEN', result.token)
-			// 		resolve()
-			// 	}).catch(error => {
-			// 		reject(error)
-			// 	})
-			// })
+			return new Promise((resolve, reject) => {
+				login(userInfo).then(response => {
+					console.log(response)
+					const result = response.result
+					Vue.ls.set(ACCESS_TOKEN, result.token, 2 * 60 * 60 * 1000)
+					commit('SET_TOKEN', result.token)
+					resolve()
+				}).catch(error => {
+					reject(error)
+				})
+			})
 		}
 	}
 };
