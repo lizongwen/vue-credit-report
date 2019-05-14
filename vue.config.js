@@ -108,8 +108,8 @@ module.exports = {
 		port: 3002,
 		open: true,
 		proxy: {
-			'/cas': {
-				target: 'https://uc.ewoho.com'
+			'/api': {
+				target: 'https://www.easy-mock.com/mock/5cda50ece6f3ff49f1a138f5'
 			}
 		}
 	},

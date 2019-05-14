@@ -79,12 +79,15 @@ export default {
     ...mapActions(['Login']),
     handleSubmit(e) {
       e.preventDefault();
-      const { form: { validateFields } } = this
+      const { form: { validateFields },Login } = this
       validateFields(['username', 'password'], { force: true }, (err, values) => {
         if (!err) {
 		  console.log('表单正确',values);
 		  values.password=md5(values.password)
-		  Login(values)
+		//   console.log(Login)
+		//   Login(values)
+		console.log(this.$store)
+		  this.$store.dispatch('Login',values)
         } else {
           console.log('表单错误')
         }
