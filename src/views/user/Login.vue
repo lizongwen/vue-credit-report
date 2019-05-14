@@ -27,24 +27,35 @@
         @submit="handleSubmit"
       >
         <a-form-item>
-          <a-input size="large" type="text" placeholder="帐户名">
+          <a-input
+            size="large"
+            type="text"
+            placeholder="帐户名"
+            v-decorator="[
+                'username',
+                {rules: [{ required: true, message: '请输入帐户名' }], validateTrigger: 'blur'}
+              ]"
+          >
             <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
           </a-input>
         </a-form-item>
         <a-form-item>
-          <a-input size="large" type="password" autocomplete="false" placeholder="密码">
+          <a-input
+            size="large"
+            type="password"
+            autocomplete="false"
+            placeholder="密码"
+            v-decorator="[
+                'password',
+                {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
+              ]"
+          >
             <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
           </a-input>
         </a-form-item>
         <a-form-item>
           <a-checkbox v-decorator="['rememberMe']">自动登录</a-checkbox>
-          <router-link
-            :to="{ name: 'recover', params: { user: 'aaa'} }"
-            class="forge-password"
-            style="float: right;"
-          >忘记密码</router-link>
         </a-form-item>
-
         <a-form-item style="margin-top:24px">
           <a-button size="large" type="primary" htmlType="submit" class="login-button">确定</a-button>
         </a-form-item>
@@ -54,8 +65,8 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { ACCESS_TOKEN } from "@/store/mutation-types";
+import md5 from 'md5'
+import { mapActions } from 'vuex'
 export default {
   components: {},
   data() {
@@ -65,12 +76,24 @@ export default {
   },
   created() { },
   methods: {
+    ...mapActions(['Login']),
     handleSubmit(e) {
       e.preventDefault();
-      Vue.ls.set(ACCESS_TOKEN, 123456789, 7 * 24 * 60 * 60 * 1000);
-      this.$router.push({
-        path: "/home"
-      });
+      const { form: { validateFields } } = this
+      validateFields(['username', 'password'], { force: true }, (err, values) => {
+        if (!err) {
+		  console.log('表单正确',values);
+		  values.password=md5(values.password)
+		  Login(values)
+        } else {
+          console.log('表单错误')
+        }
+      })
+
+      //   Vue.ls.set(ACCESS_TOKEN, 123456789, 7 * 24 * 60 * 60 * 1000);
+      //   this.$router.push({
+      //     path: "/home"
+      //   });
     }
   }
 };
