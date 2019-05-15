@@ -6,3 +6,12 @@ export function login(parameter) {
 		data: parameter
 	})
 }
+export function getInfo() {
+	return axios({
+		url: '/user/info',
+		method: 'get',
+		headers: {
+			'Content-Type': 'application/json;charset=UTF-8'
+		}
+	})
+}
