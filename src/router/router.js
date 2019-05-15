@@ -62,13 +62,13 @@ export const DynamicRouter = [
 				path: 'company',
 				name: 'company',
 				component: () => import(/* webpackChunkName: "Company" */ '@/views/Company.vue'),
-				meta: { title: '', icon: 'home', permission: 'company' },
+				meta: { title: '公司主页', icon: 'home', permission: 'company' },
 				children: [
 					{
 						path: 'base',
 						name: 'base',
 						component: () => import(/* webpackChunkName: "BaseInfo" */ '@/views/company/BaseInfo.vue'),
-						meta: { title: '', permission: 'company' }
+						meta: { title: '公司主页1', permission: 'company' }
 					}
 				]
 			}

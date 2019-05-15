@@ -326,7 +326,7 @@ const roles = [
 		},
 		{
 			'roleId': 'user',
-			'permissionId': 'home2',
+			'permissionId': 'company',
 			'permissionName': '营销管理',
 			'actions': '[]',
 			'actionEntitySet': [],
