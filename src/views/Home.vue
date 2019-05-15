@@ -13,41 +13,41 @@
 <script>
 const columns = [
   {
-    dataIndex: "name",
-    title: "项目名称",
+    dataIndex: 'name',
+    title: '项目名称'
   },
   {
-    title: "操作",
-    scopedSlots: { customRender: "action" }
+    title: '操作',
+    scopedSlots: { customRender: 'action' }
   }
-];
+]
 
 const data = [
   {
-    key: "1",
-    name: "项目1",
+    key: '1',
+    name: '项目1'
   },
   {
-    key: "2",
-    name: "项目2",
+    key: '2',
+    name: '项目2'
   }
-];
+]
 
 export default {
   data() {
     return {
       data,
       columns
-    };
+    }
   },
-  methods:{
-	  goCompany(){
-		  this.$router.push({
-			  path:'/company'
-		  })
-	  }
+  methods: {
+    goCompany() {
+      this.$router.push({
+        path: '/company'
+      })
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -63,4 +63,3 @@ export default {
   flex: 1;
 }
 </style>
-

@@ -4,9 +4,9 @@ import router from '@/router'
 import store from '@/store'
 import 'ant-design-vue/dist/antd.css'
 import App from './App.vue'
-import VueParticles from 'vue-particles'  
+import VueParticles from 'vue-particles'
 Vue.use(VueParticles)
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 Vue.use(Antd)
 
 new Vue({

@@ -32,11 +32,18 @@
             type="text"
             placeholder="帐户名"
             v-decorator="[
-                'username',
-                {rules: [{ required: true, message: '请输入帐户名' }], validateTrigger: 'blur'}
-              ]"
+              'username',
+              {
+                rules: [{ required: true, message: '请输入帐户名' }],
+                validateTrigger: 'blur'
+              }
+            ]"
           >
-            <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+            <a-icon
+              slot="prefix"
+              type="user"
+              :style="{ color: 'rgba(0,0,0,.25)' }"
+            />
           </a-input>
         </a-form-item>
         <a-form-item>
@@ -46,18 +53,31 @@
             autocomplete="false"
             placeholder="密码"
             v-decorator="[
-                'password',
-                {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
-              ]"
+              'password',
+              {
+                rules: [{ required: true, message: '请输入密码' }],
+                validateTrigger: 'blur'
+              }
+            ]"
           >
-            <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+            <a-icon
+              slot="prefix"
+              type="lock"
+              :style="{ color: 'rgba(0,0,0,.25)' }"
+            />
           </a-input>
         </a-form-item>
         <a-form-item>
           <a-checkbox v-decorator="['rememberMe']">自动登录</a-checkbox>
         </a-form-item>
         <a-form-item style="margin-top:24px">
-          <a-button size="large" type="primary" htmlType="submit" class="login-button">确定</a-button>
+          <a-button
+            size="large"
+            type="primary"
+            htmlType="submit"
+            class="login-button"
+            >确定</a-button
+          >
         </a-form-item>
       </a-form>
     </div>
@@ -72,39 +92,46 @@ export default {
   data() {
     return {
       form: this.$form.createForm(this)
-    };
+    }
   },
-  created() { },
+  created() {},
   methods: {
     ...mapActions(['Login']),
     handleSubmit(e) {
-      e.preventDefault();
-      const { form: { validateFields }, Login } = this
-      validateFields(['username', 'password'], { force: true }, (err, values) => {
-        if (!err) {
-          console.log('表单正确', values);
-          values.password = md5(values.password)
-          Login(values).then((res) => {
-            this.loadSuccess(res)
-          })
-        } else {
-          console.log('表单错误')
+      e.preventDefault()
+      const {
+        form: { validateFields },
+        Login
+      } = this
+      validateFields(
+        ['username', 'password'],
+        { force: true },
+        (err, values) => {
+          if (!err) {
+            console.log('表单正确', values)
+            values.password = md5(values.password)
+            Login(values).then(res => {
+              this.loadSuccess(res)
+            })
+          } else {
+            console.log('表单错误')
+          }
         }
-      })
+      )
     },
     loadSuccess(res) {
       this.$router.push({
-        path: "/home"
-      });
+        path: '/home'
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
 .login {
   height: 100%;
-  background-image: url("../../img/login-bg.jpg");
+  background-image: url('../../img/login-bg.jpg');
   background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;

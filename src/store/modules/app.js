@@ -1,4 +1,2 @@
-const app={
-	
-};
-export default app;
+const app = {}
+export default app
