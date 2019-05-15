@@ -67,9 +67,7 @@ const permission = {
 				const permissionList = unique(roles.map((role) => {
 					return [...role.permissionList]
 				}).flat())
-				console.log(permissionList)
 				const accessedRouters = filterAsyncRouter(DynamicRouter, permissionList)
-				console.log(accessedRouters)
 				commit('SET_ROUTERS', accessedRouters)
 				resolve()
 			})

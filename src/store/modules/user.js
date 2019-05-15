@@ -23,7 +23,6 @@ const user = {
 		Login({ commit }, userInfo) {
 			return new Promise((resolve, reject) => {
 				login(userInfo).then(response => {
-					console.log(response)
 					const result = response.result
 					Vue.ls.set(ACCESS_TOKEN, result.token, 2 * 60 * 60 * 1000)
 					commit('SET_TOKEN', result.token)
@@ -44,7 +43,6 @@ const user = {
 						})
 					}
 					result.roles = res
-					console.log(result)
 					if(result.roles.length){
 						result.roles.forEach(role => {
 							if (role && role.permissions.length > 0) {
