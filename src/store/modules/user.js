@@ -37,19 +37,19 @@ const user = {
 		GetInfo({ commit }) {
 			return new Promise((resolve, reject) => {
 				getInfo().then(response => {
-					const result = response.result; let res = [];
+					const result = response.result; let res = []
 					if (result.roles.length) {
 						res = roles.filter(item => {
 							return result.roles.includes(item.id)
 						})
 					}
-					result.roles = res;
+					result.roles = res
 					console.log(result)
 					if(result.roles.length){
 						result.roles.forEach(role => {
 							if (role && role.permissions.length > 0) {
 								role.permissions.map(per => {
-									if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
+									if (per.actionEntitySet !== null && per.actionEntitySet.length > 0) {
 										const action = per.actionEntitySet.map(action => { return action.action })
 										per.actionList = action
 									}
@@ -58,7 +58,7 @@ const user = {
 							} else {
 								reject(new Error('getInfo: roles must be a non-null array !'))
 							}
-						});
+						})
 						commit('SET_ROLES', result.roles)
 						commit('SET_INFO', result)
 					}
@@ -70,5 +70,5 @@ const user = {
 			})
 		},
 	}
-};
+}
 export default user

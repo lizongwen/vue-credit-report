@@ -8,28 +8,28 @@ import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 Vue.use(Router)
 Vue.use(VueStorage, {
-	namespace: 'credit__', // key prefix
-	name: 'ls', // name variable Vue.[ls] or this.[$ls],
-	storage: 'local' // storage name session, local, memory
+  namespace: 'credit__', // key prefix
+  name: 'ls', // name variable Vue.[ls] or this.[$ls],
+  storage: 'local' // storage name session, local, memory
 })
 
 const router = new Router({
-	mode: 'history',
-	base: process.env.BASE_URL,
-	routes: BaseRouter
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: BaseRouter
 })
 const whiteList = ['login', 'home', 'company', 'base'] // no redirect whitelist
 
 router.beforeEach((to, from, next) => {
 	if (Vue.ls.get(ACCESS_TOKEN)) {
 		/*has token */
-		console.log(to.path == '/user/login')
-		if (to.path == '/user/login') {
+		console.log(to.path === '/user/login')
+		if (to.path === '/user/login') {
 			next({ path: '/home' })
 		} else {
 			if (store.getters.roles.length === 0) {
 				store.dispatch('GetInfo').then(res=>{
-					const roles=res.result.roles;
+					const roles=res.result.roles
 					store.dispatch('GenerateRoutes', { roles }).then(() => {
 						//动态路由添加
 						router.addRoutes(store.getters.addRouters);
@@ -52,4 +52,4 @@ router.beforeEach((to, from, next) => {
 
 })
 
-export default router;
+export default router

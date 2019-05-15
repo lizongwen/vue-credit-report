@@ -11,7 +11,7 @@ import { VueAxios } from './utils/request'
 
 
 Vue.use(VueParticles)
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 Vue.use(Antd)
 Vue.use(VueAxios)
 
