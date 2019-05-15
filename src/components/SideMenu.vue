@@ -22,7 +22,11 @@
 
 <script>
 export default {
-  props: ['menus'],
+  props: {
+    menus: {
+      type: Array
+    }
+  },
   data() {
     return {
       keyArr: ['about'],
