@@ -306,7 +306,7 @@ const roles = [
 	"permissions": [
 		{
 			"roleId": "user",
-			"permissionId": "comment",
+			"permissionId": "home1",
 			"permissionName": "评论管理",
 			"actions": "[{\"action\":\"query\",\"defaultCheck\":false,\"describe\":\"查询\"},{\"action\":\"get\",\"defaultCheck\":false,\"describe\":\"详情\"}]",
 			"actionEntitySet": [
@@ -326,14 +326,13 @@ const roles = [
 		},
 		{
 			"roleId": "user",
-			"permissionId": "marketing",
+			"permissionId": "home2",
 			"permissionName": "营销管理",
 			"actions": "[]",
 			"actionEntitySet": [],
 			"actionList": null,
 			"dataAccess": null
-		},
-		
+		}
 	]
 }]
 export default roles

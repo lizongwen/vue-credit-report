@@ -1,5 +1,6 @@
 
-import { BaseRouter,DynamicRouter } from '@/router/router'
+import { BaseRouter, DynamicRouter } from '@/router/router'
+import { unique } from '@/utils/util'
 /**
  * 过滤账户是否拥有某一个权限，并将菜单从加载列表移除
  *
@@ -7,18 +8,16 @@ import { BaseRouter,DynamicRouter } from '@/router/router'
  * @param route
  * @returns {boolean}
  */
-function hasPermission (permissionList, route) {
-  if (route.meta && route.meta.permission) {
-    let flag = false
-    for (let i = 0, len = permissionList.length; i < len; i++) {
-      flag = route.meta.permission.includes(permissionList[i])
-      if (flag) {
-        return true
-      }
-    }
-    return false
-  }
-  return true
+function hasPermission(permissionList, route) {
+	if (route.meta && route.meta.permission) {
+		let flag = false
+		flag = permissionList.includes(route.meta.permission)
+		if (flag) {
+			return true
+		}
+		return false
+	}
+	return true
 }
 
 /**
@@ -30,54 +29,52 @@ function hasPermission (permissionList, route) {
  */
 // eslint-disable-next-line
 function hasRole(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return route.meta.roles.includes(roles.id)
-  } else {
-    return true
-  }
+	if (route.meta && route.meta.roles) {
+		return route.meta.roles.includes(roles.id)
+	} else {
+		return true
+	}
 }
 
-function filterAsyncRouter (routerMap, roles) {
-
-  const accessedRouters = routerMap.filter(route => {
-
-
-
-
-    if (hasPermission(roles.permissionList, route)) {
-      if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles)
-      }
-      return true
-    }
-    return false
-  })
-  return accessedRouters
+function filterAsyncRouter(routerMap, permissionList) {
+	const accessedRouters = routerMap.filter(route => {
+		if (hasPermission(permissionList, route)) {
+			if (route.children && route.children.length) {
+				route.children = filterAsyncRouter(route.children, permissionList)
+			}
+			return true
+		}
+		return false
+	})
+	return accessedRouters
 }
 
 const permission = {
-  state: {
-    routers: BaseRouter,
-    addRouters: []
-  },
-  mutations: {
-    SET_ROUTERS: (state, routers) => {
-      state.addRouters = routers
-      state.routers = BaseRouter.concat(routers)
-    }
-  },
-  actions: {
-    GenerateRoutes ({ commit }, data) {
-		console.log(data)
-      return new Promise(resolve => {
-		const { roles } = data
-		
-        const accessedRouters = filterAsyncRouter(DynamicRouter, roles)
-        commit('SET_ROUTERS', accessedRouters)
-        resolve()
-      })
-    }
-  }
+	state: {
+		routers: BaseRouter,
+		addRouters: []
+	},
+	mutations: {
+		SET_ROUTERS: (state, routers) => {
+			state.addRouters = routers
+			state.routers = BaseRouter.concat(routers)
+		}
+	},
+	actions: {
+		GenerateRoutes({ commit }, data) {
+			return new Promise(resolve => {
+				const { roles } = data
+				const permissionList = unique(roles.map((role) => {
+					return [...role.permissionList]
+				}).flat())
+				console.log(permissionList)
+				const accessedRouters = filterAsyncRouter(DynamicRouter, permissionList)
+				console.log(accessedRouters)
+				commit('SET_ROUTERS', accessedRouters)
+				resolve()
+			})
+		}
+	}
 }
 
 export default permission

@@ -52,3 +52,7 @@ export function removeLoadingAnimate(id = '', timeout = 1500) {
 		document.body.removeChild(document.getElementById(id))
 	}, timeout)
 }
+
+export function unique(arr) {
+	return Array.from(new Set(arr))
+}

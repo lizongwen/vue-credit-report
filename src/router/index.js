@@ -31,9 +31,10 @@ router.beforeEach((to, from, next) => {
 				store.dispatch('GetInfo').then(res=>{
 					const roles=res.result.roles;
 					store.dispatch('GenerateRoutes', { roles }).then(() => {
-
-						
+						//动态路由添加
+						router.addRoutes(store.getters.addRouters);
 					})
+					next({path:to.path})
 				})
 			} else {
 				next()
