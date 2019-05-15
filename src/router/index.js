@@ -23,7 +23,6 @@ const whiteList = ['login', 'home', 'company', 'base'] // no redirect whitelist
 router.beforeEach((to, from, next) => {
 	if (Vue.ls.get(ACCESS_TOKEN)) {
 		/*has token */
-		console.log(to.path === '/user/login')
 		if (to.path === '/user/login') {
 			next({ path: '/home' })
 		} else {
