@@ -46,7 +46,7 @@ export default {
     }
   },
   mounted() {
-	  console.log(this.menus)
+    console.log(this.menus)
     this.keyArr = [this.$router.currentRoute.name]
   },
   methods: {
