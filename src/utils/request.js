@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import store from '@/store'
+import { VueAxios } from './axios'
 import notification from 'ant-design-vue/es/notification'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
@@ -51,4 +52,13 @@ service.interceptors.response.use(response => {
   return response.data
 }, err)
 
-export { service as axios }
+const installer = {
+	vm: {},
+	install(Vue) {
+		Vue.use(VueAxios, service)
+	}
+}
+export {
+	installer as VueAxios,
+	service as axios
+}

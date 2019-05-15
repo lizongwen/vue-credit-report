@@ -16,7 +16,7 @@
       hoverMode="grab"
       :clickEffect="true"
       clickMode="push"
-    ></vue-particles>
+    />
     <div class="main">
       <div class="login-head">账号密码登录</div>
       <a-form

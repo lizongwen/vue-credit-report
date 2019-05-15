@@ -10,7 +10,7 @@
     >
     <a-layout>
       <a-layout-sider theme="light" width="256px">
-        <side-menu></side-menu>
+        <side-menu/>
       </a-layout-sider>
       <a-layout-content style="padding: 20px;">
         <router-view />
