@@ -36,18 +36,18 @@ function hasRole(roles, route) {
 	}
 }
 
-function filterAsyncRouter(routerMap, permissionList) {
+function filterAsyncRouter (routerMap, roles) {
 	const accessedRouters = routerMap.filter(route => {
-		if (hasPermission(permissionList, route)) {
-			if (route.children && route.children.length) {
-				route.children = filterAsyncRouter(route.children, permissionList)
-			}
-			return true
+	  if (hasPermission(roles.permissionList, route)) {
+		if (route.children && route.children.length) {
+		  route.children = filterAsyncRouter(route.children, roles)
 		}
-		return false
+		return true
+	  }
+	  return false
 	})
 	return accessedRouters
-}
+  }
 
 const permission = {
 	state: {
@@ -64,10 +64,7 @@ const permission = {
 		GenerateRoutes({ commit }, data) {
 			return new Promise(resolve => {
 				const { roles } = data
-				const permissionList = unique(roles.map((role) => {
-					return [...role.permissionList]
-				}).flat())
-				const accessedRouters = filterAsyncRouter(DynamicRouter, permissionList)
+				const accessedRouters = filterAsyncRouter(DynamicRouter, roles)
 				commit('SET_ROUTERS', accessedRouters)
 				resolve()
 			})

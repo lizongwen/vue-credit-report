@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { login, getInfo } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import roles from '@/config/roles'
+import { uniqueArrAndConcat } from '@/utils/util'
 const user = {
 	state: {
 		token: '',
@@ -42,25 +43,24 @@ const user = {
 							return result.roles.includes(item.id)
 						})
 					}
-					result.roles = res
-					if(result.roles.length){
-						result.roles.forEach(role => {
-							if (role && role.permissions.length > 0) {
-								role.permissions.map(per => {
-									if (per.actionEntitySet !== null && per.actionEntitySet.length > 0) {
-										const action = per.actionEntitySet.map(action => { return action.action })
-										per.actionList = action
-									}
-								})
-								role.permissionList = role.permissions.map(permission => { return permission.permissionId })
-							} else {
-								reject(new Error('getInfo: roles must be a non-null array !'))
-							}
-						})
-						commit('SET_ROLES', result.roles)
-						commit('SET_INFO', result)
+					result.role = {
+						permissions: uniqueArrAndConcat(res.map((item) => {
+							return [...item.permissions]
+						}).flat().map((item) => {
+							delete item.roleId
+							return item
+						}))
 					}
-					
+					if (result.role && result.role.permissions.length > 0) {
+						const role = result.role
+						role.permissions = result.role.permissions
+						role.permissionList = role.permissions.map(permission => { return permission.permissionId })
+						console.log(result.role)
+						commit('SET_ROLES', result.role)
+						commit('SET_INFO', result)
+					} else {
+						reject(new Error('getInfo: roles must be a non-null array !'))
+					}
 					resolve(response)
 				}).catch(error => {
 					reject(error)
