@@ -135,20 +135,25 @@ export default {
   background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
+  overflow: hidden;
+}
+.ant-checkbox-wrapper {
+  color: #fff;
 }
 .main {
   min-width: 260px;
-  width: 450px;
+  width: 400px;
   margin: 0 auto;
   padding: 30px 50px;
-  background: #fff;
+  background: rgba(0,0,0,0.3);
+  color: #fff;
   position: absolute;
   border-radius: 5px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   .login-head {
-    padding: 10px 0;
+    padding: 0 0 20px 0;
     font-size: 19px;
     text-align: center;
   }
