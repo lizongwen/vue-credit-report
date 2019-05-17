@@ -1,7 +1,6 @@
 <template>
   <div class="main">
-    <side-menu mode="inline" :menus="menus" :collapsible="true"/>
-
+    <!-- <side-menu mode="inline" :menus="menus" :collapsible="true"/> -->
     <div class="main-head">欢迎进入，请查看您的项目</div>
     <div class="main-body">
       <a-table :columns="columns" :dataSource="data">
