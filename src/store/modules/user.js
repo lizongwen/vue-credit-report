@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { login, getInfo } from '@/api/login'
+import { login, getInfo, logout } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import roles from '@/config/roles'
 import { uniqueArrAndConcat } from '@/utils/util'
@@ -7,7 +7,9 @@ const user = {
 	state: {
 		token: '',
 		roles: [],
-		info: {}
+		info: {},
+		name: '',
+		username: ''
 	},
 	mutations: {
 		SET_TOKEN: (state, token) => {
@@ -18,9 +20,16 @@ const user = {
 		},
 		SET_INFO: (state, info) => {
 			state.info = info
-		}
+		},
+		SET_NAME: (state, name) => {
+			state.name = name
+		},
+		SET_USERNAME: (state, username) => {
+			state.username = username
+		},
 	},
 	actions: {
+		//登录
 		Login({ commit }, userInfo) {
 			return new Promise((resolve, reject) => {
 				login(userInfo).then(response => {
@@ -55,18 +64,32 @@ const user = {
 						const role = result.role
 						role.permissions = result.role.permissions
 						role.permissionList = role.permissions.map(permission => { return permission.permissionId })
-						console.log(result.role)
 						commit('SET_ROLES', result.role)
 						commit('SET_INFO', result)
 					} else {
 						reject(new Error('getInfo: roles must be a non-null array !'))
 					}
+					commit('SET_NAME', result.name);
+					commit('SET_USERNAME', result.username);
 					resolve(response)
 				}).catch(error => {
 					reject(error)
 				})
 			})
 		},
+		// 登出
+		Logout({ commit, state }) {
+			return new Promise((resolve) => {
+				commit('SET_TOKEN', '')
+				commit('SET_ROLES', [])
+				Vue.ls.remove(ACCESS_TOKEN)
+				logout(state.username).then(() => {
+					resolve()
+				}).catch(() => {
+					resolve()
+				})
+			})
+		}
 	}
 }
 export default user

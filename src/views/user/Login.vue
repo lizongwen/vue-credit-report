@@ -108,7 +108,6 @@ export default {
         { force: true },
         (err, values) => {
           if (!err) {
-            console.log('表单正确', values)
             values.password = md5(values.password)
             Login(values).then(res => {
               this.loadSuccess(res)

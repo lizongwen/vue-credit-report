@@ -29,7 +29,6 @@ router.beforeEach((to, from, next) => {
 			if (store.getters.roles.length === 0) {
 				store.dispatch('GetInfo').then(res => {
 					const roles = res.result.role
-					console.log(res)
 					store.dispatch('GenerateRoutes', { roles }).then(() => {
 						//动态路由添加
 						router.addRoutes(store.getters.addRouters)

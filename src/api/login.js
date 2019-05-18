@@ -6,6 +6,16 @@ export function login(parameter) {
 		data: parameter
 	})
 }
+export function logout (parameter) {
+	return axios({
+	  url: '/auth/logout',
+	  method: 'post',
+	  data: parameter,
+	  headers: {
+		'Content-Type': 'application/json;charset=UTF-8'
+	  }
+	})
+  }
 export function getInfo() {
 	return axios({
 		url: '/user/info',
